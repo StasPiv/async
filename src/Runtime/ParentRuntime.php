@@ -64,11 +64,14 @@ class ParentRuntime
             return SynchronousProcess::create($task, self::getId());
         }
 
+        $processFileName = 'processes/process.php';
+        file_put_contents($processFileName, self::encodeTask($task));
+
         $process = new Process([
             'php',
             self::$childProcessScript,
             self::$autoloader,
-            self::encodeTask($task),
+            $processFileName,
             $outputLength,
         ]);
 

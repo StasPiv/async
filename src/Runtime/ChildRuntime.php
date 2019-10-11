@@ -21,7 +21,8 @@ try {
 
     require_once $autoloader;
 
-    $task = ParentRuntime::decodeTask($serializedClosure);
+    $task = ParentRuntime::decodeTask(file_get_contents($serializedClosure));
+    unlink($serializedClosure);
 
     $output = call_user_func($task);
 
